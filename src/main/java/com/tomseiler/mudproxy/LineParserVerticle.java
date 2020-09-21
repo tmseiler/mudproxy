@@ -9,8 +9,8 @@ public class LineParserVerticle extends AbstractVerticle {
 
   @Override
   public void start() throws Exception {
-    vertx.eventBus().consumer("data.incoming", data -> {
-      Buffer buffer = (Buffer) data.body();
+    vertx.eventBus().consumer("data.incoming", message -> {
+      Buffer buffer = (Buffer) message.body();
       mainBuffer.appendBuffer(buffer);
       parseLines();
     });
