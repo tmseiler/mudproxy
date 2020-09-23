@@ -23,7 +23,7 @@ public class LineParserVerticle extends AbstractVerticle {
       String string = mainBuffer.getString(i, i + 1);
       if (string.equals("\n")) {
         vertx.eventBus().publish("data.lines", lineBuffer.toString());
-        lineBuffer = new StringBuffer();
+        lineBuffer.delete(0, lineBuffer.length());
       } else {
         lineBuffer.append(string);
       }
