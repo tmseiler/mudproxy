@@ -1,26 +1,24 @@
 package com.tomseiler.mudproxy.roomservice;
 
 import org.jdbi.v3.core.Jdbi;
-import org.jdbi.v3.core.mapper.reflect.BeanMapper;
+import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
 
 public class RoomService {
     public static void main(String[] args) throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:ucanaccess://src/main/resources/data-v1.11p.mdb");
 
         Jdbi jdbi = Jdbi.create(conn);
+        jdbi.installPlugin(new SqlObjectPlugin());
 
-        List<Room> rooms = jdbi.withHandle(handle -> {
-            handle.registerRowMapper(BeanMapper.factory(Room.class));
-            return handle
-                    .createQuery("select * from rooms")
-                    .mapTo(Room.class)
-                    .list();
+        jdbi.useHandle(handle -> {
+            RoomDao roomDao = handle.attach(RoomDao.class);
+            Room room = roomDao.getRoom(1, 11);
+            System.out.println("room = " + room);
         });
-        
+
     }
 }

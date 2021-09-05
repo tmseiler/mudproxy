@@ -1,0 +1,17 @@
+Newhaven, Weapons Shop
+Also here: Nathaniel.
+Obvious exits: south
+[HP=35]:s
+Newhaven, Village Entrance
+You notice large sign, newbie manual here.
+Obvious exits: north, south, west, southeast
+[HP=35]:l
+Newhaven, Village Entrance
+    Welcome to Newhaven! You are standing at the crude wooden gates of the
+village entrance, in the middle of a dusty path. A low wooden palisade
+surrounds the village, to protect against creatures of the night and random
+raiders. You can see small buildings to the north and south, and a dusty path
+that leads to the west and southeast.
+You notice large sign, newbie manual here.
+Obvious exits: north, south, west, southeast
+[HP=35]:

@@ -1,10 +1,10 @@
 package com.tomseiler.mudproxy.roomservice;
 
-import org.jdbi.v3.core.mapper.reflect.ColumnName;
-
 public class Room {
     private int mapNumber;
+
     private int roomNumber;
+
     private String name;
     private int shop;
 
