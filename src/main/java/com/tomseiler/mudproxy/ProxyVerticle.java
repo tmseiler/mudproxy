@@ -3,11 +3,11 @@ package com.tomseiler.mudproxy;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.net.NetClient;
 import io.vertx.core.net.NetSocket;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ProxyVerticle extends AbstractVerticle {
-  private static final Logger LOGGER = LogManager.getLogger();
+  private static final Logger LOGGER = LoggerFactory.getLogger(ProxyVerticle.class);
   private final NetSocket serverSocket;
   private final String host;
   private final int port;
