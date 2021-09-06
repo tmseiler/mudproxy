@@ -3,9 +3,11 @@ package com.tomseiler.mudproxy;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.net.NetClient;
 import io.vertx.core.net.NetSocket;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ProxyVerticle extends AbstractVerticle {
-
+  private static final Logger LOGGER = LoggerFactory.getLogger(ProxyVerticle.class);
   private final NetSocket serverSocket;
   private final String host;
   private final int port;
@@ -18,11 +20,11 @@ public class ProxyVerticle extends AbstractVerticle {
 
   @Override
   public void start() throws Exception {
-    System.out.println("ProxyVerticle started.");
+    LOGGER.info("ProxyVerticle started.");
     NetClient netClient = vertx.createNetClient();
     netClient.connect(port, host, asyncResult -> {
       if (asyncResult.succeeded()) {
-        System.out.println("Connected to the BBS!");
+        LOGGER.info("Connected to the BBS!");
         NetSocket clientSocket = asyncResult.result();
         clientSocket.handler(buffer -> {
           // Tee incoming data from the BBS here
@@ -31,7 +33,7 @@ public class ProxyVerticle extends AbstractVerticle {
         });
         serverSocket.handler(clientSocket::write);
       } else {
-        System.out.println("Failed to connect: " + asyncResult.cause().getMessage());
+        LOGGER.info("Failed to connect: " + asyncResult.cause().getMessage());
       }
     });
   }
