@@ -4,12 +4,11 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.net.NetServer;
 import io.vertx.core.net.NetServerOptions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MainVerticle extends AbstractVerticle {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MainVerticle.class);
-
+    private static final Logger LOGGER = LogManager.getLogger();
     @Override
     public void start(Promise<Void> startPromise) throws Exception {
         NetServerOptions options = new NetServerOptions().setPort(4321);

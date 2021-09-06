@@ -12,9 +12,5 @@
         <Logger name="io.netty" level="info">
             <AppenderRef ref="Console"/>
         </Logger>
-        <Logger name="com.tomseiler" level="info">
-            <AppenderRef ref="Console"/>
-        </Logger>
-
     </Loggers>
 </Configuration>
