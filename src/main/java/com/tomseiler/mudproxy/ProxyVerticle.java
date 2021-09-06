@@ -28,7 +28,7 @@ public class ProxyVerticle extends AbstractVerticle {
         NetSocket clientSocket = asyncResult.result();
         clientSocket.handler(buffer -> {
           // Tee incoming data from the BBS here
-          vertx.eventBus().publish("data.bbs.incoming", buffer);
+          vertx.eventBus().publish("data.raw.incoming", buffer);
           serverSocket.write(buffer);
         });
         serverSocket.handler(clientSocket::write);
