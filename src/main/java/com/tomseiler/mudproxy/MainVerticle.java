@@ -14,7 +14,6 @@ public class MainVerticle extends AbstractVerticle {
         NetServerOptions options = new NetServerOptions().setPort(4321);
         NetServer netServer = vertx.createNetServer(options);
         LOGGER.info("Server started.");
-        System.out.println("This should be logged");
 
         // user tomtest
         // pass whatup
