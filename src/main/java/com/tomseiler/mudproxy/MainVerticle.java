@@ -28,6 +28,6 @@ public class MainVerticle extends AbstractVerticle {
         netServer.listen();
 
         vertx.deployVerticle(new LineParserVerticle());
-        vertx.deployVerticle(new StatTrackerVerticle());
+        vertx.deployVerticle(new ExpTrackerVerticle());
     }
 }
