@@ -2,6 +2,7 @@ package com.tomseiler.mudproxy;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
+import io.vertx.core.Vertx;
 import io.vertx.core.net.NetServer;
 import io.vertx.core.net.NetServerOptions;
 import org.slf4j.Logger;
@@ -29,5 +30,10 @@ public class MainVerticle extends AbstractVerticle {
 
         vertx.deployVerticle(new LineParserVerticle());
         vertx.deployVerticle(new ExpTrackerVerticle());
+    }
+
+    public static void main(String[] args) {
+        Vertx vertx = Vertx.vertx();
+        vertx.deployVerticle(new MainVerticle());
     }
 }
