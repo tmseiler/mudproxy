@@ -12,10 +12,8 @@ import java.util.regex.Pattern;
 public class LineParserVerticle extends AbstractVerticle {
     private static final Logger LOGGER = LoggerFactory.getLogger(LineParserVerticle.class);
 
-    private static final String ESCAPE = "\033\\[.*?m";
-
-    private static final Pattern escapePattern = Pattern.compile(ESCAPE);
-
+    // https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
+    private static final Pattern ESCAPE_PATTERN = Pattern.compile("\033\\[.*?m");
 
     private Buffer mainBuffer = Buffer.buffer(1024);
 
@@ -36,7 +34,7 @@ public class LineParserVerticle extends AbstractVerticle {
             if (string.equals("\n")) {
                 String parsedLine = lineBuffer.toString();
 
-                Matcher matcher = escapePattern.matcher(parsedLine);
+                Matcher matcher = ESCAPE_PATTERN.matcher(parsedLine);
 
                 if (matcher.find()) {
                     parsedLine = matcher.replaceAll("");
