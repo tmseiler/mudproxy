@@ -10,8 +10,7 @@ import java.util.regex.Pattern;
 public class StatTrackerVerticle extends AbstractVerticle {
     private static final Logger LOGGER = LoggerFactory.getLogger(StatTrackerVerticle.class);
 
-    private static final Pattern EXP_PATTERN = Pattern.compile("Exp:.*?(\\d+)");
-//    private static final Pattern EXP_PATTERN = Pattern.compile("Exp: (\\d+) Level: (\\d+) Exp needed for next level: (\\d+) \\((\\d+)\\) \\[(\\d+)%]");
+    private static final Pattern EXP_PATTERN = Pattern.compile("Exp: (\\d+) Level: (\\d+) Exp needed for next level: (\\d+) \\((\\d+)\\) \\[(\\d+)%]");
 
     @Override
     public void start() throws Exception {
@@ -20,8 +19,6 @@ public class StatTrackerVerticle extends AbstractVerticle {
             Matcher matcher = EXP_PATTERN.matcher(line);
             if (matcher.find()) {
                 LOGGER.info("Exp pattern hit: {} exp needed", matcher.group(1));
-            } else {
-                LOGGER.info("No exp line match");
             }
         });
     }

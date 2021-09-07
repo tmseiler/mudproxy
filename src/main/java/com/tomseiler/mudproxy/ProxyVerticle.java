@@ -33,7 +33,7 @@ public class ProxyVerticle extends AbstractVerticle {
         });
         serverSocket.handler(clientSocket::write);
       } else {
-        LOGGER.info("Failed to connect: " + asyncResult.cause().getMessage());
+        LOGGER.info("Failed to connect: {}", asyncResult.cause().getMessage());
       }
     });
   }
