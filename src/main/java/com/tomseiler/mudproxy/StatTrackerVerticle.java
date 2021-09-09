@@ -22,25 +22,21 @@ public class StatTrackerVerticle extends AbstractVerticle {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StatTrackerVerticle.class);
 
-    private static final Pattern STAT_BEGIN = Pattern.compile("Name:\\s+([\\w+])\\s+([\\w+])\\s+Lives/CP:(\\d+)/(\\d+)");
-
-    private static final Pattern STR_PATTERN = Pattern.compile("Strength:\\s+(\\d+)");
-    private static final Pattern INT_PATTERN = Pattern.compile("Intellect:\\s+(\\d+)");
-    private static final Pattern WIL_PATTERN = Pattern.compile("Willpower:\\s+(\\d+)");
-    private static final Pattern AGI_PATTERN = Pattern.compile("Agility:\\s+(\\d+)");
-    private static final Pattern HEA_PATTERN = Pattern.compile("Health:\\s+(\\d+)");
-    private static final Pattern CHA_PATTERN = Pattern.compile("Charm:\\s+(\\d+)");
-
-    private static final Pattern HITS_PATTERN = Pattern.compile("Hits:\\s+(\\d+)/(\\d+)");
-    private static final Pattern MANA_PATTERN = Pattern.compile("Mana:\\s+(\\d+)/(\\d+)");
-    private static final Pattern ARMOR_PATTERN = Pattern.compile("Armour Class:\\s+(\\d+)/(\\d+)");
-    private static final Pattern SC_PATTERN = Pattern.compile("Spellcasting:\\s+(\\d+)");
+    private static final Pattern STAT_LINE_1 = Pattern.compile("Name:\\s+([\\w]+)\\s+([\\w]+)\\s+Lives/CP:(\\d+)/(\\d+)");
+    private static final Pattern STAT_LINE_2 = Pattern.compile("Race:\\s+([\\w\\s]+)\\s+Exp:\\s+(\\d+)\\s+Perception:\\s+(\\d+)");
+    private static final Pattern STAT_LINE_3 = Pattern.compile("Class:\\s+([\\w]+)\\s+Level:\\s+(\\d+)\\s+Stealth:\\s+(\\d+)");
+    private static final Pattern STAT_LINE_4 = Pattern.compile("Hits:\\s+([\\w+])\\s+([\\w+])\\s+Lives/CP:(\\d+)/(\\d+)");
+    private static final Pattern STAT_LINE_5 = Pattern.compile("Mana:\\s+([\\w+])\\s+([\\w+])\\s+Lives/CP:(\\d+)/(\\d+)");
+    private static final Pattern STAT_LINE_6 = Pattern.compile("Picklocks:\\s+([\\w+])\\s+([\\w+])\\s+Lives/CP:(\\d+)/(\\d+)");
+    private static final Pattern STAT_LINE_7 = Pattern.compile("Strength:\\s+([\\w+])\\s+([\\w+])\\s+Lives/CP:(\\d+)/(\\d+)");
+    private static final Pattern STAT_LINE_8 = Pattern.compile("Intellect:\\s+([\\w+])\\s+([\\w+])\\s+Lives/CP:(\\d+)/(\\d+)");
+    private static final Pattern STAT_LINE_9 = Pattern.compile("Willpower:\\s+([\\w+])\\s+([\\w+])\\s+Lives/CP:(\\d+)/(\\d+)");
 
     @Override
     public void start() throws Exception {
         vertx.eventBus().consumer("data.lines", message -> {
             String line = (String) message.body();
-            Matcher matcher = STAT_BEGIN.matcher(line);
+            Matcher matcher = STAT_LINE_1.matcher(line);
             if (matcher.find()) {
                 LOGGER.info("Exp pattern hit: {} exp needed", matcher.group(1));
             }
