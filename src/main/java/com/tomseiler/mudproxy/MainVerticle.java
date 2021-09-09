@@ -30,6 +30,7 @@ public class MainVerticle extends AbstractVerticle {
 
         vertx.deployVerticle(new LineParserVerticle());
         vertx.deployVerticle(new ExpTrackerVerticle());
+        vertx.deployVerticle(new StatDetectorVerticle());
     }
 
     public static void main(String[] args) {

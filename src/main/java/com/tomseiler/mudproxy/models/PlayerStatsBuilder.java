@@ -5,6 +5,7 @@ public class PlayerStatsBuilder {
     private String lastName;
     private int lives;
     private int cp;
+    private String race;
     private String playerClass;
     private int exp;
     private int level;
@@ -170,7 +171,12 @@ public class PlayerStatsBuilder {
         return this;
     }
 
-    public PlayerStats createPlayerStats() {
-        return new PlayerStats(firstName, lastName, lives, cp, playerClass, exp, level, currentHits, maxHits, currentMana, maxMana, ac, dr, sc, strength, intellect, willpower, agility, health, charm, perception, stealth, thievery, traps, picklocks, tracking, martialArts, magicRes);
+    public PlayerStatsBuilder race(String race) {
+        this.race = race;
+        return this;
+    }
+
+    public PlayerStats build() {
+        return new PlayerStats(firstName, lastName, lives, cp, race, playerClass, exp, level, currentHits, maxHits, currentMana, maxMana, ac, dr, sc, strength, intellect, willpower, agility, health, charm, perception, stealth, thievery, traps, picklocks, tracking, martialArts, magicRes);
     }
 }

@@ -8,6 +8,8 @@ public class PlayerStats {
     private int cp;
 
     // todo enum
+    private String race;
+    // todo enum
     private String playerClass;
 
     private int exp;
@@ -41,11 +43,12 @@ public class PlayerStats {
     private int magicRes;
 
 
-    public PlayerStats(String firstName, String lastName, int lives, int cp, String playerClass, int exp, int level, int currentHits, int maxHits, int currentMana, int maxMana, int ac, int dr, int sc, int strength, int intellect, int willpower, int agility, int health, int charm, int perception, int stealth, int thievery, int traps, int picklocks, int tracking, int martialArts, int magicRes) {
+    public PlayerStats(String firstName, String lastName, int lives, int cp, String race, String playerClass, int exp, int level, int currentHits, int maxHits, int currentMana, int maxMana, int ac, int dr, int sc, int strength, int intellect, int willpower, int agility, int health, int charm, int perception, int stealth, int thievery, int traps, int picklocks, int tracking, int martialArts, int magicRes) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.lives = lives;
         this.cp = cp;
+        this.race = race;
         this.playerClass = playerClass;
         this.exp = exp;
         this.level = level;
@@ -70,5 +73,40 @@ public class PlayerStats {
         this.tracking = tracking;
         this.martialArts = martialArts;
         this.magicRes = magicRes;
+    }
+
+    @Override
+    public String toString() {
+        return "PlayerStats{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", lives=" + lives +
+                ", cp=" + cp +
+                ", race='" + race + '\'' +
+                ", playerClass='" + playerClass + '\'' +
+                ", exp=" + exp +
+                ", level=" + level +
+                ", currentHits=" + currentHits +
+                ", maxHits=" + maxHits +
+                ", currentMana=" + currentMana +
+                ", maxMana=" + maxMana +
+                ", ac=" + ac +
+                ", dr=" + dr +
+                ", sc=" + sc +
+                ", strength=" + strength +
+                ", intellect=" + intellect +
+                ", willpower=" + willpower +
+                ", agility=" + agility +
+                ", health=" + health +
+                ", charm=" + charm +
+                ", perception=" + perception +
+                ", stealth=" + stealth +
+                ", thievery=" + thievery +
+                ", traps=" + traps +
+                ", picklocks=" + picklocks +
+                ", tracking=" + tracking +
+                ", martialArts=" + martialArts +
+                ", magicRes=" + magicRes +
+                '}';
     }
 }
