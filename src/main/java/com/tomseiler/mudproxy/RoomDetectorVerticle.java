@@ -8,12 +8,13 @@ import org.slf4j.LoggerFactory;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.tomseiler.mudproxy.util.Ansi.ESCAPE;
 import static com.tomseiler.mudproxy.util.Topics.RAW_LINES;
 
 public class RoomDetectorVerticle extends AbstractVerticle {
     private static final Logger LOGGER = LoggerFactory.getLogger(RoomDetectorVerticle.class);
 
-    public static final Pattern ROOM_NAME = Pattern.compile(String.format("%s(.*?)", Ansi.BOLD_CYAN));
+    public static final Pattern ROOM_NAME = Pattern.compile(String.format("%s(.*?)%s", Ansi.BOLD_CYAN, ESCAPE));
 
     @Override
     public void start() throws Exception {
@@ -23,7 +24,7 @@ public class RoomDetectorVerticle extends AbstractVerticle {
 
             Matcher matcher = ROOM_NAME.matcher(line);
             if (matcher.find()) {
-                LOGGER.debug("Found room: {}", matcher.group(0));
+                LOGGER.debug("Found room: {}", matcher.group(1));
             }
         });
     }

@@ -27,15 +27,14 @@ public class MainVerticle extends AbstractVerticle {
             vertx.deployVerticle(proxyVerticle);
         });
         netServer.listen();
-
-        vertx.deployVerticle(new LineParserVerticle());
-        vertx.deployVerticle(new ExpDetectorVerticle());
-        vertx.deployVerticle(new StatDetectorVerticle());
-//        vertx.deployVerticle(new RoomDetectorVerticle());
     }
 
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx();
         vertx.deployVerticle(new MainVerticle());
+        vertx.deployVerticle(new LineParserVerticle());
+        vertx.deployVerticle(new ExpDetectorVerticle());
+        vertx.deployVerticle(new StatDetectorVerticle());
+        vertx.deployVerticle(new RoomDetectorVerticle());
     }
 }

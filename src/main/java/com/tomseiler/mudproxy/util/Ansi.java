@@ -6,10 +6,11 @@ import java.util.regex.Pattern;
 public class Ansi {
     // https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
 
+    public static final String ESCAPE = "\033";
     private static final Pattern ESCAPE_PATTERN = Pattern.compile("\033\\[.*?m");
 
     public static final String DEFAULT = "\033[39m";
-    public static final String RESET = "\033[0m";
+    public static final String RESET = "\033\\[0m";
 
     public static final String BLACK = "\033[30m";
     public static final String BOLD_BLACK = "\033[1;30m";
@@ -24,7 +25,7 @@ public class Ansi {
     public static final String MAGENTA = "\033[35m";
     public static final String BOLD_MAGENTA = "\033[1;35m";
     public static final String CYAN = "\033[36m";
-    public static final String BOLD_CYAN = "\033[1;36m";
+    public static final String BOLD_CYAN = "\033\\[1;36m";
     public static final String WHITE = "\033[37m";
     public static final String BOLD_WHITE = "\033[1;37m";
 
