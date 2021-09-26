@@ -29,8 +29,9 @@ public class MainVerticle extends AbstractVerticle {
         netServer.listen();
 
         vertx.deployVerticle(new LineParserVerticle());
-        vertx.deployVerticle(new ExpTrackerVerticle());
+        vertx.deployVerticle(new ExpDetectorVerticle());
         vertx.deployVerticle(new StatDetectorVerticle());
+//        vertx.deployVerticle(new RoomDetectorVerticle());
     }
 
     public static void main(String[] args) {

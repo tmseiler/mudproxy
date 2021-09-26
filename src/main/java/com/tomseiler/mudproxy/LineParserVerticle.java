@@ -6,6 +6,8 @@ import io.vertx.core.buffer.Buffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static com.tomseiler.mudproxy.util.Topics.*;
+
 
 public class LineParserVerticle extends AbstractVerticle {
     private static final Logger LOGGER = LoggerFactory.getLogger(LineParserVerticle.class);
@@ -14,7 +16,9 @@ public class LineParserVerticle extends AbstractVerticle {
 
     @Override
     public void start() throws Exception {
-        vertx.eventBus().consumer("data.raw.incoming", message -> {
+        LOGGER.info("{} deployed", getClass().getSimpleName());
+
+        vertx.eventBus().consumer(RAW_SERVER_DATA, message -> {
             Buffer buffer = (Buffer) message.body();
             mainBuffer.appendBuffer(buffer);
             parseLines();
@@ -22,17 +26,20 @@ public class LineParserVerticle extends AbstractVerticle {
     }
 
     private void parseLines() {
-        StringBuffer lineBuffer = new StringBuffer();
+        StringBuilder lineBuffer = new StringBuilder();
 
         for (int i = 0; i < mainBuffer.length(); i++) {
             String string = mainBuffer.getString(i, i + 1);
             if (string.equals("\n")) {
                 String parsedLine = lineBuffer.toString();
 
-                parsedLine = Ansi.stripAnsi(parsedLine);
+                vertx.eventBus().publish(RAW_LINES, parsedLine);
 
-                LOGGER.debug("Parsed incoming line: {}", parsedLine);
-                vertx.eventBus().publish("data.lines", parsedLine);
+                String strippedLine;
+                strippedLine = Ansi.stripAnsi(parsedLine);
+
+                LOGGER.debug("Parsed incoming line: {}", strippedLine);
+                vertx.eventBus().publish(STRIPPED_LINES, strippedLine);
 
                 lineBuffer.delete(0, lineBuffer.length());
             } else {

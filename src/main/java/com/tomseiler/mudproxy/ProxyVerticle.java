@@ -6,6 +6,8 @@ import io.vertx.core.net.NetSocket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static com.tomseiler.mudproxy.util.Topics.RAW_SERVER_DATA;
+
 public class ProxyVerticle extends AbstractVerticle {
   private static final Logger LOGGER = LoggerFactory.getLogger(ProxyVerticle.class);
   private final NetSocket serverSocket;
@@ -28,7 +30,7 @@ public class ProxyVerticle extends AbstractVerticle {
         NetSocket clientSocket = asyncResult.result();
         clientSocket.handler(buffer -> {
           // Tee incoming data from the BBS here
-          vertx.eventBus().publish("data.raw.incoming", buffer);
+          vertx.eventBus().publish(RAW_SERVER_DATA, buffer);
           serverSocket.write(buffer);
         });
         serverSocket.handler(clientSocket::write);

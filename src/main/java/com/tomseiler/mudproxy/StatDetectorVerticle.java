@@ -3,6 +3,7 @@ package com.tomseiler.mudproxy;
 import com.tomseiler.mudproxy.models.PlayerStats;
 import com.tomseiler.mudproxy.models.PlayerStatsBuilder;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.eventbus.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,6 +11,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.tomseiler.mudproxy.util.Topics.STRIPPED_LINES;
 
 public class StatDetectorVerticle extends AbstractVerticle {
     /*
@@ -58,84 +61,87 @@ public class StatDetectorVerticle extends AbstractVerticle {
 
     @Override
     public void start() throws Exception {
-        vertx.eventBus().consumer("data.lines", message -> {
-            if (builder == null) {
-                patternIndex = 0;
+        LOGGER.info("{} deployed", getClass().getSimpleName());
+        vertx.eventBus().consumer(STRIPPED_LINES, this::handleLine);
+    }
+
+    private void handleLine(Message<Object> message) {
+        if (builder == null) {
+            patternIndex = 0;
+        }
+
+        String line = (String) message.body();
+
+        Matcher matcher = patternList.get(patternIndex).matcher(line);
+
+        // todo always reset if first one matches
+
+        if (matcher.find()) {
+            LOGGER.debug("Stat pattern hit: {}", matcher.group(0));
+            switch (patternIndex) {
+                case 0:
+                    builder = new PlayerStatsBuilder();
+                    builder.firstName(matcher.group(1));
+                    builder.lastName(matcher.group(2));
+                    builder.lives(Integer.parseInt(matcher.group(3)));
+                    builder.cp(Integer.parseInt(matcher.group(4)));
+                    patternIndex++;
+                    break;
+                case 1:
+                    builder.race(matcher.group(1));
+                    builder.exp(Integer.parseInt(matcher.group(2)));
+                    builder.perception(Integer.parseInt(matcher.group(3)));
+                    patternIndex++;
+                    break;
+                case 2:
+                    builder.playerClass(matcher.group(1));
+                    builder.level(Integer.parseInt(matcher.group(2)));
+                    builder.stealth(Integer.parseInt(matcher.group(3)));
+                    patternIndex++;
+                    break;
+                case 3:
+                    builder.currentHits(Integer.parseInt(matcher.group(1)));
+                    builder.maxHits(Integer.parseInt(matcher.group(2)));
+                    builder.ac(Integer.parseInt(matcher.group(3)));
+                    builder.dr(Integer.parseInt(matcher.group(4)));
+                    builder.thievery(Integer.parseInt(matcher.group(4)));
+                    patternIndex++;
+                    break;
+                case 4:
+                    builder.currentMana(Integer.parseInt(matcher.group(1)));
+                    builder.maxMana(Integer.parseInt(matcher.group(2)));
+                    builder.sc(Integer.parseInt(matcher.group(3)));
+                    builder.traps(Integer.parseInt(matcher.group(4)));
+                    patternIndex++;
+                    break;
+                case 5:
+                    builder.picklocks(Integer.parseInt(matcher.group(1)));
+                    patternIndex++;
+                    break;
+                case 6:
+                    builder.strength(Integer.parseInt(matcher.group(1)));
+                    builder.agility(Integer.parseInt(matcher.group(2)));
+                    builder.tracking(Integer.parseInt(matcher.group(3)));
+                    patternIndex++;
+                    break;
+                case 7:
+                    builder.intellect(Integer.parseInt(matcher.group(1)));
+                    builder.health(Integer.parseInt(matcher.group(2)));
+                    builder.martialArts(Integer.parseInt(matcher.group(3)));
+                    patternIndex++;
+                    break;
+                case 8:
+                    builder.willpower(Integer.parseInt(matcher.group(1)));
+                    builder.charm(Integer.parseInt(matcher.group(2)));
+                    builder.magicRes(Integer.parseInt(matcher.group(3)));
+                    PlayerStats stats = builder.build();
+                    LOGGER.info("Stats detected: {}", stats);
+                    builder = null;
+                    patternIndex = 0;
+                    break;
+                default:
             }
 
-            String line = (String) message.body();
-
-            Matcher matcher = patternList.get(patternIndex).matcher(line);
-
-            // todo always reset if first one matches
-
-            if (matcher.find()) {
-                LOGGER.debug("Stat pattern hit: {}", matcher.group(0));
-                switch(patternIndex) {
-                    case 0:
-                        builder = new PlayerStatsBuilder();
-                        builder.firstName(matcher.group(1));
-                        builder.lastName(matcher.group(2));
-                        builder.lives(Integer.parseInt(matcher.group(3)));
-                        builder.cp(Integer.parseInt(matcher.group(4)));
-                        patternIndex++;
-                        break;
-                    case 1:
-                        builder.race(matcher.group(1));
-                        builder.exp(Integer.parseInt(matcher.group(2)));
-                        builder.perception(Integer.parseInt(matcher.group(3)));
-                        patternIndex++;
-                        break;
-                    case 2:
-                        builder.playerClass(matcher.group(1));
-                        builder.level(Integer.parseInt(matcher.group(2)));
-                        builder.stealth(Integer.parseInt(matcher.group(3)));
-                        patternIndex++;
-                        break;
-                    case 3:
-                        builder.currentHits(Integer.parseInt(matcher.group(1)));
-                        builder.maxHits(Integer.parseInt(matcher.group(2)));
-                        builder.ac(Integer.parseInt(matcher.group(3)));
-                        builder.dr(Integer.parseInt(matcher.group(4)));
-                        builder.thievery(Integer.parseInt(matcher.group(4)));
-                        patternIndex++;
-                        break;
-                    case 4:
-                        builder.currentMana(Integer.parseInt(matcher.group(1)));
-                        builder.maxMana(Integer.parseInt(matcher.group(2)));
-                        builder.sc(Integer.parseInt(matcher.group(3)));
-                        builder.traps(Integer.parseInt(matcher.group(4)));
-                        patternIndex++;
-                        break;
-                    case 5:
-                        builder.picklocks(Integer.parseInt(matcher.group(1)));
-                        patternIndex++;
-                        break;
-                    case 6:
-                        builder.strength(Integer.parseInt(matcher.group(1)));
-                        builder.agility(Integer.parseInt(matcher.group(2)));
-                        builder.tracking(Integer.parseInt(matcher.group(3)));
-                        patternIndex++;
-                        break;
-                    case 7:
-                        builder.intellect(Integer.parseInt(matcher.group(1)));
-                        builder.health(Integer.parseInt(matcher.group(2)));
-                        builder.martialArts(Integer.parseInt(matcher.group(3)));
-                        patternIndex++;
-                        break;
-                    case 8:
-                        builder.willpower(Integer.parseInt(matcher.group(1)));
-                        builder.charm(Integer.parseInt(matcher.group(2)));
-                        builder.magicRes(Integer.parseInt(matcher.group(3)));
-                        PlayerStats stats = builder.build();
-                        LOGGER.info("Stats detected: {}", stats);
-                        builder = null;
-                        patternIndex = 0;
-                        break;
-                    default:
-                }
-
-            }
-        });
+        }
     }
 }
