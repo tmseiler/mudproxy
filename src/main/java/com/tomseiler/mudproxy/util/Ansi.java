@@ -25,9 +25,26 @@ public class Ansi {
     public static final String MAGENTA = "\033[35m";
     public static final String BOLD_MAGENTA = "\033[1;35m";
     public static final String CYAN = "\033[36m";
-    public static final String BOLD_CYAN = "\033\\[1;36m";
+    public static final String BOLD_CYAN = "\033[1;36m";
     public static final String WHITE = "\033[37m";
     public static final String BOLD_WHITE = "\033[1;37m";
+
+    public static final String BLACK_RE = "\033\\[30m";
+    public static final String BOLD_BLACK_RE = "\033\\[1;30m";
+    public static final String RED_RE = "\033\\[31m";
+    public static final String BOLD_RED_RE = "\033\\[1;31m";
+    public static final String GREEN_RE = "\033\\[32m";
+    public static final String BOLD_GREEN_RE = "\033\\[1;32m";
+    public static final String YELLOW_RE = "\033\\[33m";
+    public static final String BOLD_YELLOW_RE = "\033\\[1;33m";
+    public static final String BLUE_RE = "\033\\[34m";
+    public static final String BOLD_BLUE_RE = "\033\\[1;34m";
+    public static final String MAGENTA_RE = "\033\\[35m";
+    public static final String BOLD_MAGENTA_RE = "\033\\[1;35m";
+    public static final String CYAN_RE = "\033\\[36m";
+    public static final String BOLD_CYAN_RE = "\033\\[1;36m";
+    public static final String WHITE_RE = "\033\\[37m";
+    public static final String BOLD_WHITE_RE = "\033\\[1;37m";
 
     public static String stripAnsi(String s) {
         Matcher matcher = ESCAPE_PATTERN.matcher(s);
