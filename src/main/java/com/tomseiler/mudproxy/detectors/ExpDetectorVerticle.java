@@ -1,5 +1,6 @@
 package com.tomseiler.mudproxy.detectors;
 
+import com.tomseiler.mudproxy.models.PlayerExp;
 import io.vertx.core.AbstractVerticle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,14 @@ public class ExpDetectorVerticle extends AbstractVerticle {
             String line = message.body();
             Matcher matcher = EXP_PATTERN.matcher(line);
             if (matcher.find()) {
-                LOGGER.info("Exp pattern hit: {} exp needed", matcher.group(1));
+                PlayerExp playerExp = new PlayerExp(
+                        Integer.parseInt(matcher.group(1)),
+                        Integer.parseInt(matcher.group(2)),
+                        Integer.parseInt(matcher.group(3)),
+                        Integer.parseInt(matcher.group(4)),
+                        Integer.parseInt(matcher.group(5))
+                );
+                LOGGER.info("Found exp: {}", playerExp);
             }
         });
     }
