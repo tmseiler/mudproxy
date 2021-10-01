@@ -18,8 +18,8 @@ public class ExpDetectorVerticle extends AbstractVerticle {
     public void start() throws Exception {
         LOGGER.info("{} deployed", getClass().getSimpleName());
 
-        vertx.eventBus().consumer(STRIPPED_LINES, message -> {
-            String line = (String) message.body();
+        vertx.eventBus().<String>consumer(STRIPPED_LINES, message -> {
+            String line = message.body();
             Matcher matcher = EXP_PATTERN.matcher(line);
             if (matcher.find()) {
                 LOGGER.info("Exp pattern hit: {} exp needed", matcher.group(1));

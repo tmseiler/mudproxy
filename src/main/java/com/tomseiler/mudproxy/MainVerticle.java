@@ -1,6 +1,7 @@
 package com.tomseiler.mudproxy;
 
 import com.tomseiler.mudproxy.detectors.ExpDetectorVerticle;
+import com.tomseiler.mudproxy.detectors.MobDetectorVerticle;
 import com.tomseiler.mudproxy.detectors.RoomDetectorVerticle;
 import com.tomseiler.mudproxy.detectors.StatDetectorVerticle;
 import io.vertx.core.AbstractVerticle;
@@ -39,5 +40,6 @@ public class MainVerticle extends AbstractVerticle {
         vertx.deployVerticle(new ExpDetectorVerticle());
         vertx.deployVerticle(new StatDetectorVerticle());
         vertx.deployVerticle(new RoomDetectorVerticle());
+        vertx.deployVerticle(new MobDetectorVerticle());
     }
 }

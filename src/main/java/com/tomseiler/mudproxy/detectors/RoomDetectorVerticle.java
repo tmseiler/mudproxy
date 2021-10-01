@@ -33,8 +33,8 @@ public class RoomDetectorVerticle extends AbstractVerticle {
     public void start() {
         LOGGER.info("{} deployed", getClass().getSimpleName());
 
-        vertx.eventBus().consumer(RAW_LINES, message -> {
-            String line = (String) message.body();
+        vertx.eventBus().<String>consumer(RAW_LINES, message -> {
+            String line = message.body();
 
             Matcher nameMatcher = ROOM_NAME.matcher(line);
             Matcher exitMatcher = OBVIOUS_EXITS.matcher(line);

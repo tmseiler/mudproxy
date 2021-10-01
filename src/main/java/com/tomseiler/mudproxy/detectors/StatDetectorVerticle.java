@@ -62,15 +62,15 @@ public class StatDetectorVerticle extends AbstractVerticle {
     @Override
     public void start() throws Exception {
         LOGGER.info("{} deployed", getClass().getSimpleName());
-        vertx.eventBus().consumer(STRIPPED_LINES, this::handleLine);
+        vertx.eventBus().<String>consumer(STRIPPED_LINES, this::handleLine);
     }
 
-    private void handleLine(Message<Object> message) {
+    private void handleLine(Message<String> message) {
         if (builder == null) {
             patternIndex = 0;
         }
 
-        String line = (String) message.body();
+        String line = message.body();
 
         Matcher matcher = patternList.get(patternIndex).matcher(line);
 
