@@ -1,4 +1,4 @@
-package com.tomseiler.mudproxy;
+package com.tomseiler.mudproxy.detectors;
 
 import com.tomseiler.mudproxy.models.PlayerStats;
 import com.tomseiler.mudproxy.models.PlayerStatsBuilder;

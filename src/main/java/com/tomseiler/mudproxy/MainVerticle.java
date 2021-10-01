@@ -1,5 +1,8 @@
 package com.tomseiler.mudproxy;
 
+import com.tomseiler.mudproxy.detectors.ExpDetectorVerticle;
+import com.tomseiler.mudproxy.detectors.RoomDetectorVerticle;
+import com.tomseiler.mudproxy.detectors.StatDetectorVerticle;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;

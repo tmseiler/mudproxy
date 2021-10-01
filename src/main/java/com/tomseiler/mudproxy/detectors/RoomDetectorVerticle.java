@@ -1,6 +1,5 @@
-package com.tomseiler.mudproxy;
+package com.tomseiler.mudproxy.detectors;
 
-import com.tomseiler.mudproxy.models.Room;
 import com.tomseiler.mudproxy.models.RoomBuilder;
 import com.tomseiler.mudproxy.util.Ansi;
 import io.vertx.core.AbstractVerticle;
@@ -28,15 +27,11 @@ public class RoomDetectorVerticle extends AbstractVerticle {
     public static final Pattern ROOM_NAME = Pattern.compile(String.format("%s(.*)%s?", Ansi.BOLD_CYAN_RE, ESCAPE));
     public static final Pattern OBVIOUS_EXITS = Pattern.compile(String.format("Obvious exits: (.*)%s?", ESCAPE));
 
-    private Mode mode;
     private RoomBuilder roomBuilder;
 
     @Override
-    public void start() throws Exception {
+    public void start() {
         LOGGER.info("{} deployed", getClass().getSimpleName());
-
-        mode = Mode.WAITING_FOR_NAME;
-
 
         vertx.eventBus().consumer(RAW_LINES, message -> {
             String line = (String) message.body();
@@ -59,12 +54,5 @@ public class RoomDetectorVerticle extends AbstractVerticle {
                 LOGGER.info("Found room: {}", roomBuilder.createRoom());
             }
         });
-    }
-
-    private enum Mode {
-        WAITING_FOR_NAME,
-        CONTENTS_STARTED,
-        OCCUPANTS_STARTED,
-        EXITS_STARTED
     }
 }

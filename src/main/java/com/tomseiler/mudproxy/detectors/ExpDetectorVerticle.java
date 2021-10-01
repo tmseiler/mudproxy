@@ -1,4 +1,4 @@
-package com.tomseiler.mudproxy;
+package com.tomseiler.mudproxy.detectors;
 
 import io.vertx.core.AbstractVerticle;
 import org.slf4j.Logger;
