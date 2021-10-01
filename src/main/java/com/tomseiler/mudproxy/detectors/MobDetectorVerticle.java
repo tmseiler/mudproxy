@@ -4,9 +4,7 @@ import io.vertx.core.AbstractVerticle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,6 +22,9 @@ public class MobDetectorVerticle extends AbstractVerticle {
 
     public static final Pattern ALSO_HERE = Pattern.compile("Also here: (.*)");
     public static final Pattern OBVIOUS_EXITS = Pattern.compile("Obvious exits:");
+
+    public static final Pattern ADJECTIVES_PATTERN = Pattern.compile("fierce|short|fat|happy|tall|large|big|nasty|angry|small");
+
 
     @Override
     public void start() throws Exception {
@@ -55,7 +56,8 @@ public class MobDetectorVerticle extends AbstractVerticle {
 
         StringTokenizer tokenizer = new StringTokenizer(toParse, ",");
         tokenizer.asIterator().forEachRemaining(token -> {
-            names.add(((String) token).trim());
+            Matcher matcher = ADJECTIVES_PATTERN.matcher((String) token);
+            names.add(matcher.replaceFirst("").trim());
         });
         return names;
     }
