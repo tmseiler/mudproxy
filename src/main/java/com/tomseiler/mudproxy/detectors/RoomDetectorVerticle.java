@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.tomseiler.mudproxy.util.Ansi.ESCAPE;
-import static com.tomseiler.mudproxy.util.Topics.RAW_LINES;
+import static com.tomseiler.mudproxy.util.Topics.LINES_RAW;
 
 public class RoomDetectorVerticle extends AbstractVerticle {
     /*
@@ -33,7 +33,7 @@ public class RoomDetectorVerticle extends AbstractVerticle {
     public void start() {
         LOGGER.info("{} deployed", getClass().getSimpleName());
 
-        vertx.eventBus().<String>consumer(RAW_LINES, message -> {
+        vertx.eventBus().<String>consumer(LINES_RAW, message -> {
             String line = message.body();
 
             Matcher nameMatcher = ROOM_NAME.matcher(line);

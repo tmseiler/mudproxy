@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.tomseiler.mudproxy.util.Topics.STRIPPED_LINES;
+import static com.tomseiler.mudproxy.util.Topics.LINES_STRIPPED;
 
 public class StatDetectorVerticle extends AbstractVerticle {
     /*
@@ -62,7 +62,7 @@ public class StatDetectorVerticle extends AbstractVerticle {
     @Override
     public void start() throws Exception {
         LOGGER.info("{} deployed", getClass().getSimpleName());
-        vertx.eventBus().<String>consumer(STRIPPED_LINES, this::handleLine);
+        vertx.eventBus().<String>consumer(LINES_STRIPPED, this::handleLine);
     }
 
     private void handleLine(Message<String> message) {

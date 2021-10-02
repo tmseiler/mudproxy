@@ -33,13 +33,13 @@ public class LineParserVerticle extends AbstractVerticle {
             if (string.equals("\n")) {
                 String parsedLine = lineBuffer.toString();
 
-                vertx.eventBus().publish(RAW_LINES, parsedLine);
+                vertx.eventBus().publish(LINES_RAW, parsedLine);
 
                 String strippedLine;
                 strippedLine = Ansi.stripAnsi(parsedLine);
 
                 LOGGER.debug("Parsed incoming line: {}", strippedLine);
-                vertx.eventBus().publish(STRIPPED_LINES, strippedLine);
+                vertx.eventBus().publish(LINES_STRIPPED, strippedLine);
 
                 lineBuffer.delete(0, lineBuffer.length());
             } else {

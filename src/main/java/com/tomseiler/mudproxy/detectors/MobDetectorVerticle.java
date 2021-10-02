@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.tomseiler.mudproxy.util.Topics.STRIPPED_LINES;
+import static com.tomseiler.mudproxy.util.Topics.LINES_STRIPPED;
 
 public class MobDetectorVerticle extends AbstractVerticle {
     /*
@@ -30,7 +30,7 @@ public class MobDetectorVerticle extends AbstractVerticle {
     public void start() throws Exception {
         LOGGER.info("{} deployed", getClass().getSimpleName());
 
-        vertx.eventBus().<String>consumer(STRIPPED_LINES, message -> {
+        vertx.eventBus().<String>consumer(LINES_STRIPPED, message -> {
             Matcher alsoHereMatcher = ALSO_HERE.matcher(message.body());
             Matcher obviousExitsMatcher = OBVIOUS_EXITS.matcher(message.body());
             if (alsoHereMatcher.find()) {

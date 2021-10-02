@@ -5,8 +5,6 @@ import com.tomseiler.mudproxy.detectors.MobDetectorVerticle;
 import com.tomseiler.mudproxy.detectors.RoomDetectorVerticle;
 import com.tomseiler.mudproxy.detectors.StatDetectorVerticle;
 import io.vertx.config.ConfigRetriever;
-import io.vertx.config.ConfigRetrieverOptions;
-import io.vertx.config.ConfigStoreOptions;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
@@ -23,7 +21,7 @@ public class MainVerticle extends AbstractVerticle {
     private int port;
 
     @Override
-    public void start(Promise<Void> startPromise) throws Exception {
+    public void start(Promise<Void> startPromise) {
         NetServerOptions options = new NetServerOptions().setPort(4321);
         NetServer netServer = vertx.createNetServer(options);
 

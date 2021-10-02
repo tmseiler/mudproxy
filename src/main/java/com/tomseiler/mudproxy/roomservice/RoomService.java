@@ -19,6 +19,5 @@ public class RoomService {
             Room room = roomDao.getRoom(1, 11);
             System.out.println("room = " + room);
         });
-
     }
 }
