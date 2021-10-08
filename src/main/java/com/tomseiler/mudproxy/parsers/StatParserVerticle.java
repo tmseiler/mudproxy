@@ -1,4 +1,4 @@
-package com.tomseiler.mudproxy.detectors;
+package com.tomseiler.mudproxy.parsers;
 
 import com.tomseiler.mudproxy.models.PlayerStats;
 import com.tomseiler.mudproxy.models.PlayerStatsBuilder;
@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 import static com.tomseiler.mudproxy.util.Topics.LINES_STRIPPED;
 
-public class StatDetectorVerticle extends AbstractVerticle {
+public class StatParserVerticle extends AbstractVerticle {
     /*
     Name: Proxy Testing                    Lives/CP:      9/0
     Race: Gaunt One   Exp: 0               Perception:     63
@@ -27,7 +27,7 @@ public class StatDetectorVerticle extends AbstractVerticle {
     Willpower: 50     Charm:   30          MagicRes:       52
     */
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StatDetectorVerticle.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StatParserVerticle.class);
 
     private static final Pattern STAT_LINE_1 = Pattern.compile("Name:\\s+(\\w+)\\s+(\\w+)\\s+Lives/CP:\\s+(\\d+)/(\\d+)");
     private static final Pattern STAT_LINE_2 = Pattern.compile(

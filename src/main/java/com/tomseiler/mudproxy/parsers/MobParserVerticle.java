@@ -1,4 +1,4 @@
-package com.tomseiler.mudproxy.detectors;
+package com.tomseiler.mudproxy.parsers;
 
 import io.vertx.core.AbstractVerticle;
 import org.slf4j.Logger;
@@ -10,13 +10,13 @@ import java.util.regex.Pattern;
 
 import static com.tomseiler.mudproxy.util.Topics.LINES_STRIPPED;
 
-public class MobDetectorVerticle extends AbstractVerticle {
+public class MobParserVerticle extends AbstractVerticle {
     /*
     Lava Tube
     Also here: angry salamander, salamander.
     Obvious exits: east, southwest
     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(MobDetectorVerticle.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MobParserVerticle.class);
 
     StringBuffer alsoHere = null;
 

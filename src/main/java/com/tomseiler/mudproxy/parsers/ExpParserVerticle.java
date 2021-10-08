@@ -1,4 +1,4 @@
-package com.tomseiler.mudproxy.detectors;
+package com.tomseiler.mudproxy.parsers;
 
 import com.tomseiler.mudproxy.models.PlayerExp;
 import io.vertx.core.AbstractVerticle;
@@ -11,8 +11,8 @@ import java.util.regex.Pattern;
 import static com.tomseiler.mudproxy.util.Topics.LINES_STRIPPED;
 import static com.tomseiler.mudproxy.util.Topics.PARSED_EXP;
 
-public class ExpDetectorVerticle extends AbstractVerticle {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExpDetectorVerticle.class);
+public class ExpParserVerticle extends AbstractVerticle {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExpParserVerticle.class);
 
     private static final Pattern EXP_PATTERN = Pattern.compile("Exp: (\\d+) Level: (\\d+) Exp needed for next level: (\\d+) \\((\\d+)\\) \\[(\\d+)%]");
 

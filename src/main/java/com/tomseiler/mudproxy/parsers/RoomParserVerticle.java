@@ -1,4 +1,4 @@
-package com.tomseiler.mudproxy.detectors;
+package com.tomseiler.mudproxy.parsers;
 
 import com.tomseiler.mudproxy.models.RoomBuilder;
 import com.tomseiler.mudproxy.util.Ansi;
@@ -15,14 +15,14 @@ import java.util.regex.Pattern;
 import static com.tomseiler.mudproxy.util.Ansi.ESCAPE;
 import static com.tomseiler.mudproxy.util.Topics.LINES_RAW;
 
-public class RoomDetectorVerticle extends AbstractVerticle {
+public class RoomParserVerticle extends AbstractVerticle {
     /*
     Lava Tube
     You notice 5 gold crowns here.
     Also here: fat salamander.
     Obvious exits: east, northwest
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(RoomDetectorVerticle.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RoomParserVerticle.class);
 
     public static final Pattern ROOM_NAME = Pattern.compile(String.format("%s(.*)%s?", Ansi.BOLD_CYAN_RE, ESCAPE));
     public static final Pattern OBVIOUS_EXITS = Pattern.compile(String.format("Obvious exits: (.*)%s?", ESCAPE));
