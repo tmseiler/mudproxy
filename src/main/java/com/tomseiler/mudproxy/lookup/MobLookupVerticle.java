@@ -39,7 +39,6 @@ public class MobLookupVerticle extends AbstractVerticle {
                         mobMap -> LOGGER.info("Looked up {}: {}", mobName, mobMap),
                         () -> LOGGER.info("No data found for {}", mobName)
                         );
-
             });
         });
     }

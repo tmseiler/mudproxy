@@ -1,6 +1,6 @@
 package com.tomseiler.mudproxy.parsers;
 
-import com.tomseiler.mudproxy.models.PlayerExp;
+import com.tomseiler.mudproxy.models.parsed.PlayerExp;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.json.JsonObject;
 import org.slf4j.Logger;

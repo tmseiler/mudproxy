@@ -1,4 +1,4 @@
-package com.tomseiler.mudproxy.models;
+package com.tomseiler.mudproxy.models.parsed;
 
 public class PlayerStatsBuilder {
     private String firstName;

@@ -1,7 +1,7 @@
 package com.tomseiler.mudproxy.parsers;
 
-import com.tomseiler.mudproxy.models.PlayerStats;
-import com.tomseiler.mudproxy.models.PlayerStatsBuilder;
+import com.tomseiler.mudproxy.models.parsed.PlayerStats;
+import com.tomseiler.mudproxy.models.parsed.PlayerStatsBuilder;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.Message;
 import org.slf4j.Logger;

@@ -1,6 +1,6 @@
 package com.tomseiler.mudproxy.parsers;
 
-import com.tomseiler.mudproxy.models.RoomBuilder;
+import com.tomseiler.mudproxy.models.parsed.RoomBuilder;
 import com.tomseiler.mudproxy.util.Ansi;
 import io.vertx.core.AbstractVerticle;
 import org.slf4j.Logger;
