@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.tomseiler.mudproxy.util.Topics.LINES_STRIPPED;
+import static com.tomseiler.mudproxy.util.Topics.PARSED_MOBS;
 
 public class MobParserVerticle extends AbstractVerticle {
     /*
@@ -40,6 +41,7 @@ public class MobParserVerticle extends AbstractVerticle {
                 // we can stop looking and build the string
                 List<String> names = parseNames(alsoHere.toString());
                 LOGGER.info("Found mobs: {}", names);
+                names.forEach(name -> vertx.eventBus().publish(PARSED_MOBS, name));
                 alsoHere = null;
             } else if (alsoHere != null) {
                 // we're on a subsequent line

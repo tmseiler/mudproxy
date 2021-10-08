@@ -2,6 +2,7 @@ package com.tomseiler.mudproxy.parsers;
 
 import com.tomseiler.mudproxy.models.PlayerExp;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.json.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +33,7 @@ public class ExpParserVerticle extends AbstractVerticle {
                         Integer.parseInt(matcher.group(5))
                 );
                 LOGGER.info("Found exp: {}", playerExp);
-                vertx.eventBus().publish(PARSED_EXP, playerExp);
+                vertx.eventBus().publish(PARSED_EXP, JsonObject.mapFrom(playerExp));
             }
         });
     }

@@ -1,5 +1,6 @@
 package com.tomseiler.mudproxy;
 
+import com.tomseiler.mudproxy.lookup.MobLookupVerticle;
 import com.tomseiler.mudproxy.parsers.ExpParserVerticle;
 import com.tomseiler.mudproxy.parsers.MobParserVerticle;
 import com.tomseiler.mudproxy.parsers.RoomParserVerticle;
@@ -52,5 +53,6 @@ public class MainVerticle extends AbstractVerticle {
         vertx.deployVerticle(new StatParserVerticle());
         vertx.deployVerticle(new RoomParserVerticle());
         vertx.deployVerticle(new MobParserVerticle());
+        vertx.deployVerticle(new MobLookupVerticle());
     }
 }
