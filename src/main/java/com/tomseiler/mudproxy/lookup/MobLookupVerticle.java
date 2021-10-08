@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Map;
+import java.util.Optional;
 
 import static com.tomseiler.mudproxy.util.Topics.PARSED_MOBS;
 
@@ -26,7 +28,19 @@ public class MobLookupVerticle extends AbstractVerticle {
 
         vertx.eventBus().<String>consumer(PARSED_MOBS, mobMessage -> {
             String mobName = mobMessage.body();
-            LOGGER.info("Looking up: {}", mobName);
+            LOGGER.debug("Looking up: {}", mobName);
+
+            jdbi.useHandle(handle -> {
+                Optional<Map<String, Object>> mobData = handle.createQuery("SELECT * from Monsters where Name = :mobName limit 1")
+                        .bind("mobName", mobName)
+                        .mapToMap()
+                        .findOne();
+                mobData.ifPresentOrElse(
+                        mobMap -> LOGGER.info("Looked up {}: {}", mobName, mobMap),
+                        () -> LOGGER.info("No data found for {}", mobName)
+                        );
+
+            });
         });
     }
 }
