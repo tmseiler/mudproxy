@@ -1,5 +1,6 @@
 package com.tomseiler.mudproxy.lookup;
 
+import com.tomseiler.mudproxy.models.game.Monster;
 import io.vertx.core.AbstractVerticle;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
@@ -31,12 +32,20 @@ public class MobLookupVerticle extends AbstractVerticle {
             LOGGER.debug("Looking up: {}", mobName);
 
             jdbi.useHandle(handle -> {
-                Optional<Map<String, Object>> mobData = handle.createQuery("SELECT * from Monsters where Name = :mobName limit 1")
+                Optional<Monster> monsterOptional = handle.createQuery("SELECT * from Monsters where Name = :mobName limit 1")
                         .bind("mobName", mobName)
-                        .mapToMap()
+                        .map((rs, ctx) -> new Monster(
+                                rs.getInt("number"),
+                                rs.getString("name"),
+                                rs.getInt("ArmourClass"),
+                                rs.getInt("DamageResist"),
+                                rs.getInt("Hp"),
+                                rs.getInt("EXP"),
+                                rs.getInt("ExpMulti"),
+                                rs.getInt("MagicRes")))
                         .findOne();
-                mobData.ifPresentOrElse(
-                        mobMap -> LOGGER.info("Looked up {}: {}", mobName, mobMap),
+                monsterOptional.ifPresentOrElse(
+                        monster -> LOGGER.info("Looked up {}: {}", mobName, monster),
                         () -> LOGGER.info("No data found for {}", mobName)
                         );
             });
